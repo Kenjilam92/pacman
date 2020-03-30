@@ -79,24 +79,24 @@ draw();
 countlife(life);
 // moving character
 
-function movingghost(){
+setTimeout(function movingghost(){
     var preghost= {...ghostlocation};
     ghostlocation.i+= Math.floor(math.random()*3)-1;
     ghostlocation.j+= Math.floor(math.random()*3)-1;
     if (map[ghostmanlocation.i][ghostlocation.j]==1){
         ghostlocation=preghost;
-    } 
+        } 
     else if (ghostlocation.j<0){
-        ghostlocation.j=14;
-    } 
+            ghostlocation.j=14;
+            } 
     else if ([ghostlocation.j]>14){
-        ghostlocation.j=0;
-    }
+            ghostlocation.j=0;
+            }
     ghostDiv.style.top= 30*ghostlocation.i+'px';
     ghostDiv.style.left= 30*ghostlocation.j+'px';
-    movingghost();
-}
-movingghost();
+    console.log ("Here come the ghost");
+},1000);
+
 
 document.onkeydown= function(event){
     var prelocation = {...pacmanlocation};
