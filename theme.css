@@ -1,0 +1,134 @@
+*{
+    padding: 0px;
+    margin: 0px;   
+}
+div{
+    box-sizing: border-box;
+    border: none;
+}
+
+.game{
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+}
+
+#map{
+    width: 450px;
+    background-color: black;
+    display: inline-block;
+    line-height: 0;
+}
+
+.menu{
+    display: inline-block;
+    background-color: black;
+    vertical-align: top;
+    width: 300px;
+    padding: 20px
+}
+.menu h2{
+    color: yellow;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.menu p{
+    color: white;
+    text-align: left;
+    display: inline-block;
+    justify-self: flex-start;
+}
+
+
+#score{
+    width: 100px;
+    text-align: center;
+    padding: 10px;
+    border:white solid 2px;
+    border-radius: 10%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    vertical-align: middle;
+    color:white;
+    display: inline-block;
+    justify-self: flex-end;
+}
+
+/* graphic */
+
+.wall{
+    width: 30px;
+    height: 30px;
+    background-color: blue;
+    display: inline-block;
+}
+
+.coin{
+    background-image: url(assets/yellowdot.png);
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-position: center;
+    background-size: 30%;
+    background-repeat: no-repeat;
+    background-color: black;
+    border-radius: 100%;
+}
+
+.yellowdot{
+    background-image: url(assets/yellowdot.png);
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-position: center;
+    background-size: 15%;
+    background-repeat: no-repeat;
+    background-color: black;
+    border-radius: 100%;
+}
+.empty{
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+}
+
+#pacman{
+    background-image: url(assets/pacmanright.gif);
+    width: 30px;
+    height: 30px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top:  270px;
+    left: 210px;
+}
+
+#ghost{
+    background-image: url(assets/redghost.gif);
+    width: 30px;
+    height: 30px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top:  210px;
+    left: 210px;
+}
+
+#gameover{
+    background-color: black;
+    width: 450px;
+    height: 450px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#life{
+    display: inline-block;
+}
+.pacmanlife{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+}
