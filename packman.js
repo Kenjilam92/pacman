@@ -13,6 +13,22 @@ var map =  [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
             [1,0,1,1,0,1,1,0,1,1,0,1,1,0,1],    
             [1,2,0,0,0,0,0,0,0,0,0,0,0,2,1],
             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
+
+var win =  [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,3,3,3,3,3,3,3,3,3,3,3,3,3,1],
+            [1,3,1,1,3,1,1,3,1,1,3,1,1,3,1],
+            [1,3,3,3,3,1,3,3,3,1,3,3,3,3,1],
+            [1,1,3,1,1,1,3,1,3,1,1,1,3,1,1],
+            [1,3,3,3,3,3,3,3,3,3,3,3,3,3,1],
+            [1,3,1,3,3,3,1,1,3,1,3,3,1,3,1],
+            [3,3,3,3,1,3,1,3,3,1,3,1,1,3,3],
+            [1,3,1,3,3,3,1,1,1,1,3,3,1,3,1],
+            [1,3,3,3,3,3,3,3,3,3,3,3,3,3,1],
+            [1,1,3,1,1,1,3,1,3,1,1,1,3,1,1],
+            [1,3,3,3,3,1,3,3,3,1,3,3,3,3,1],
+            [1,3,1,1,3,1,1,3,1,1,3,1,1,3,1],    
+            [1,3,3,3,3,3,3,3,3,3,3,3,3,3,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
 var coin="<div class='coin'></div>";
 var wall="<div class='wall'></div>";
 var yellowdot="<div class='yellowdot'></div>";
@@ -29,7 +45,7 @@ var scored=0;
 var scoreDiv=document.getElementById("score");
 var prelocation=0;
 var ghostDiv=document.getElementById("ghost");
-var ghostlocation={
+var ghostlocation= {
     i:7,
     j:7
 };
@@ -79,11 +95,14 @@ draw();
 countlife(life);
 // moving character
 
-setTimeout(function movingghost(){
+setInterval(function movingghost(){
     var preghost= {...ghostlocation};
-    ghostlocation.i+= Math.floor(math.random()*3)-1;
-    ghostlocation.j+= Math.floor(math.random()*3)-1;
-    if (map[ghostmanlocation.i][ghostlocation.j]==1){
+    var random = Math.random();
+    if(random<0.25){ghostlocation.i--;}
+    else if (random<0.5){ghostlocation.j--;}
+    else if (random<0.75){ghostlocation.i++;}
+    else if (random<1){ghostlocation.j++;}
+    if (map[ghostlocation.i][ghostlocation.j]==1){
         ghostlocation=preghost;
         } 
     else if (ghostlocation.j<0){
@@ -92,33 +111,51 @@ setTimeout(function movingghost(){
     else if ([ghostlocation.j]>14){
             ghostlocation.j=0;
             }
+    else if (pacmanlocation.i==ghostlocation.i&&pacmanlocation.j==ghostlocation.j){
+        deathsound.play();
+        life--;
+        if (life==0){
+            mapDiv.innerHTML="<img id='gameover' src= 'assets/gameover.gif'>";
+            ghostDiv.style.backgroundImage= "url()";
+            pacmanDiv.style.backgroundImage= "url()";
+            lifeDiv.innerHTML="";
+            document.onkeydown=function(){
+                location.reload();
+                }
+        }
+        else 
+            countlife(life);
+            pacmanlocation={
+                i:9,
+                j:7
+            }
+            pacmanDiv.style.top= 30*pacmanlocation.i+'px';
+            pacmanDiv.style.left= 30*pacmanlocation.j+'px';
+        // location.reload();
+        // console.log("gameover");     
+    }
     ghostDiv.style.top= 30*ghostlocation.i+'px';
     ghostDiv.style.left= 30*ghostlocation.j+'px';
-    console.log ("Here come the ghost");
-},1000);
-
+    // console.log ("Here come the ghost");
+},300);
 
 document.onkeydown= function(event){
     var prelocation = {...pacmanlocation};
     switch (event.key){
         case("ArrowUp"):
             pacmanlocation.i--;
-            // pacmanDiv.style.backgroundImage= "url(assets/pacmanup.gif)";
             pacmanDiv.style.transform= "rotate(270deg)"; 
         break;
         case("ArrowRight"):
             pacmanlocation.j++;
-            // pacmanDiv.style.backgroundImage= "url(assets/pacmanright.gif)";
             pacmanDiv.style.transform= "rotate(0deg)";
         break;
         case("ArrowDown"):
             pacmanlocation.i++;
-            // pacmanDiv.style.backgroundImage= "url(assets/pacmandown.gif)";
             pacmanDiv.style.transform= "rotate(90deg)";
         break;
         case("ArrowLeft"):
             pacmanlocation.j--;
-            // pacmanDiv.style.backgroundImage= "url(assets/pacmanleft.gif)";
             pacmanDiv.style.transform= "rotate(180deg)";
         break;
     default:
@@ -139,12 +176,18 @@ document.onkeydown= function(event){
         map[pacmanlocation.i][pacmanlocation.j]=3;
         draw();
         score100();
+        if (map==win){
+            location.reload();
+        }
     } 
     else if (map[pacmanlocation.i][pacmanlocation.j]==0){
         coinsound.play();
         map[pacmanlocation.i][pacmanlocation.j]=3;
         draw();
         score50();
+        if (map===win){
+            location.reload();
+        }
     }
     else if (pacmanlocation.i==ghostlocation.i&&pacmanlocation.j==ghostlocation.j){
         deathsound.play();
@@ -164,11 +207,11 @@ document.onkeydown= function(event){
                 i:9,
                 j:7
             }
-        
+            pacmanDiv.style.top= 30*pacmanlocation.i+'px';
+            pacmanDiv.style.left= 30*pacmanlocation.j+'px';
         // location.reload();
-        // console.log("gameover");
-        }
+        // console.log("gameover");     
+    }
     pacmanDiv.style.top= 30*pacmanlocation.i+'px';
     pacmanDiv.style.left= 30*pacmanlocation.j+'px';
 }
-
